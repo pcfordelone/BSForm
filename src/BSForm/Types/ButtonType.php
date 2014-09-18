@@ -86,5 +86,4 @@ class ButtonType extends AbstractFieldType
         return $field;
 
     }
-
 } 
