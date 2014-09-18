@@ -3,16 +3,16 @@ namespace BSForm\Types;
 
 use BSForm\Interfaces\FieldInterface;
 use BSForm\Interfaces\FieldContainerInterface;
+use BSForm\Traits\FieldContainerTrait;
+use BSForm\Traits\IndentableTrait;
 use BSForm\Traits\SearchableTrait;
 
 class FieldsetType extends AbstractFieldType implements FieldContainerInterface
 {
     use SearchableTrait;
+    use IndentableTrait;
+    use FieldContainerTrait;
 
-    /**
-     * @var FieldInterface[]
-     */
-    protected $fields;
     protected $legend;
 
     public function setLegend($legend)
@@ -46,35 +46,5 @@ class FieldsetType extends AbstractFieldType implements FieldContainerInterface
         $field .= "</fieldset>\n";
 
         return $field;
-
-    }
-
-    public function addField(FieldInterface $field)
-    {
-        $this->fields[] = $field;
-
-        return $this;
-    }
-
-    public function getFieldList()
-    {
-        return $this->fields;
-    }
-
-    public function find($name, $value)
-    {
-        $method = "get".ucfirst($name);
-        foreach ($this->fields as $field) {
-            if ($field instanceof FieldInterface && method_exists($field, $method) && $field->$method() == $value) {
-                return $field;
-            } elseif ($field instanceof FieldContainerInterface) {
-                $found = $field->find($name, $value);
-                if (false !== $found) {
-                    return $found;
-                }
-            }
-        }
-
-        return isset($found) ? $found : false;
     }
 } 

@@ -1,8 +1,6 @@
 <?php
 namespace BSForm\Types;
 
-use BSForm\Types\AbstractFieldType;
-
 abstract class AbstractInputType extends AbstractFieldType
 {
     protected $type;

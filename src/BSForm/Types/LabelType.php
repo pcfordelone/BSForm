@@ -3,18 +3,16 @@ namespace BSForm\Types;
 
 use BSForm\Interfaces\FieldContainerInterface;
 use BSForm\Interfaces\FieldInterface;
+use BSForm\Traits\FieldContainerTrait;
 use BSForm\Traits\SearchableTrait;
 
 class LabelType extends AbstractFieldType implements FieldContainerInterface
 {
     use SearchableTrait;
+    use FieldContainerTrait;
 
     protected $for;
     protected $text;
-    /**
-     * @var FieldInterface[]
-     */
-    protected $fields = array();
 
     public function setFor($for)
     {
@@ -66,17 +64,4 @@ class LabelType extends AbstractFieldType implements FieldContainerInterface
         return $field;
 
     }
-
-    public function addField(FieldInterface $field)
-    {
-        $this->fields[] = $field;
-
-        return $this;
-    }
-
-    public function getFieldList()
-    {
-        return $this->fields;
-    }
-
 } 

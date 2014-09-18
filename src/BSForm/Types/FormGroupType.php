@@ -3,6 +3,7 @@ namespace BSForm\Types;
 
 use BSForm\Interfaces\FieldContainerInterface;
 use BSForm\Interfaces\FieldInterface;
+use BSForm\Traits\FieldContainerTrait;
 use BSForm\Traits\IndentableTrait;
 use BSForm\Traits\SearchableTrait;
 
@@ -10,37 +11,19 @@ class FormGroupType implements FieldInterface, FieldContainerInterface
 {
     use IndentableTrait;
     use SearchableTrait;
-
-    /**
-     * @var FieldInterface[]
-     */
-    protected $fields = array();
+    use FieldContainerTrait;
 
     public function __construct()
     {
         $this->class = "form-group";
     }
 
-    public function addField(FieldInterface $field)
-    {
-        $this->fields[] = $field;
-
-        return $this;
-    }
-
-    public function getFieldList()
-    {
-        return $this->fields;
-    }
-
     public function setName($name)
     {
-
     }
 
     public function getName()
     {
-
     }
 
     public function addClass($class)

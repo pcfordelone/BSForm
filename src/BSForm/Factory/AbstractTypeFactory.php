@@ -32,7 +32,7 @@ class AbstractTypeFactory
         foreach ($params as $method => $value) {
             $setter = "set".ucfirst($method);
             if (!method_exists($field, $setter)) {
-                throw new MethodNotFoundException("Method {$setter} unknown for class {$type}");
+                throw new MethodNotFoundException("Method {$setter} unknown for class " . get_class($field));
             }
             $field->$setter($value);
         }
