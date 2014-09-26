@@ -13,12 +13,19 @@
     ],
     
     "license" : "MIT",
-    
+
+    "config" : {
+        "bin-dir" : "bin/"
+    },
+
     "require" : {
-        "php" : ">=5.4" 
+        "php"             : ">=5.4",
+        "phpunit/phpunit" : "4.2.*"
     },
     
     "autoload": {
-        "psr-0": {"BSForm\\": "src/"}
+        "psr-0": {
+            "BSForm\\" : "src/"
+        }
     }
 }

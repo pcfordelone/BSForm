@@ -15,6 +15,13 @@ class ButtonType extends AbstractFieldType
 
     public function setType($type = "button")
     {
+        if (!is_string($type)) {
+            throw new \InvalidArgumentException("Value must be string");
+        }
+        $validTypes = ["button", "submit", "reset"];
+        if (!in_array($type, $validTypes)) {
+            throw new \InvalidArgumentException("Invalid value. Must be \"button\", \"submit\" or \"reset\"");
+        }
         $this->type = $type;
 
         return $this;
@@ -27,6 +34,9 @@ class ButtonType extends AbstractFieldType
 
     public function addClass($class)
     {
+        if (!is_string($class)) {
+            throw new \InvalidArgumentException("Value must be string");
+        }
         $this->class .= " {$class}";
 
         return $this;
@@ -39,6 +49,9 @@ class ButtonType extends AbstractFieldType
 
     public function setRole($role)
     {
+        if (!is_string($role)) {
+            throw new \InvalidArgumentException("Value must be string");
+        }
         $this->role = $role;
 
         return $this;
@@ -51,6 +64,9 @@ class ButtonType extends AbstractFieldType
 
     public function setInnerText($innerText)
     {
+        if (!is_string($innerText)) {
+            throw new \InvalidArgumentException("Value must be string");
+        }
         $this->innerText = $innerText;
 
         return $this;
@@ -63,6 +79,9 @@ class ButtonType extends AbstractFieldType
 
     public function setIcon($icon)
     {
+        if (!is_string($icon)) {
+            throw new \InvalidArgumentException("Value must be string");
+        }
         $this->icon = $icon;
 
         return $this;

@@ -30,6 +30,9 @@ abstract class AbstractFormType implements FormInterface, FieldContainerInterfac
 
     public function setAction($action = "")
     {
+        if (!is_string($action)) {
+            throw new \InvalidArgumentException("Value must be a string");
+        }
         $this->action = $action;
 
         return $this;
@@ -42,6 +45,9 @@ abstract class AbstractFormType implements FormInterface, FieldContainerInterfac
 
     public function setClass($class)
     {
+        if (!is_string($class)) {
+            throw new \InvalidArgumentException("Value must be a string");
+        }
         $this->class = $class;
 
         return $this;
@@ -54,6 +60,9 @@ abstract class AbstractFormType implements FormInterface, FieldContainerInterfac
 
     public function setId($id)
     {
+        if (!is_string($id)) {
+            throw new \InvalidArgumentException("Value must be a string");
+        }
         $this->id = $id;
 
         return $this;
@@ -66,6 +75,9 @@ abstract class AbstractFormType implements FormInterface, FieldContainerInterfac
 
     public function setMethod($method = "POST")
     {
+        if (strtoupper($method) !== "POST" || strtoupper($method) !== "GET") {
+            throw new \InvalidArgumentException("Value must be either POST or GET");
+        }
         $this->method = $method;
 
         return $this;
@@ -78,6 +90,9 @@ abstract class AbstractFormType implements FormInterface, FieldContainerInterfac
 
     public function setName($name)
     {
+        if (!is_string($name)) {
+            throw new \InvalidArgumentException("Value must be a string");
+        }
         $this->name = $name;
 
         return $this;
@@ -90,6 +105,9 @@ abstract class AbstractFormType implements FormInterface, FieldContainerInterfac
 
     public function setNovalidate($novalidate = false)
     {
+        if (!is_string($novalidate)) {
+            throw new \InvalidArgumentException("Value must be a string");
+        }
         $this->novalidate = $novalidate;
 
         return $this;
@@ -102,6 +120,9 @@ abstract class AbstractFormType implements FormInterface, FieldContainerInterfac
 
     public function setRole($role = "form")
     {
+        if (!is_string($role)) {
+            throw new \InvalidArgumentException("Value must be a string");
+        }
         $this->role = $role;
 
         return $this;
@@ -133,6 +154,11 @@ abstract class AbstractFormType implements FormInterface, FieldContainerInterfac
 
     public function setErrorPlacement($errorPlacement = "top")
     {
+        $validValues = ["top", "infield", "bottom"];
+        if (!in_array(strtolower($errorPlacement), $validValues)) {
+            throw new \InvalidArgumentException("Invalid value. Must be \"top\", \"infield\" or \"bottom\"");
+        }
+
         $this->errorPlacement = $errorPlacement;
         if ($errorPlacement == "infield" && count($this->validator->getFieldsWithError()) > 0) {
             foreach ($this->validator->getFieldsWithError() as $field) {
