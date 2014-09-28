@@ -19,7 +19,7 @@ class ButtonTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testCheckIfSettersAreImplementedCorrectly()
+    public function testSettersAndGetters()
     {
         $bt = new ButtonType();
 

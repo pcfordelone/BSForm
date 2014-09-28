@@ -21,41 +21,27 @@ class InlineFormTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('BSForm\Interfaces\FieldContainerInterface', new InlineFormType(new Validator));
     }
 
-    public function testCheckClass()
-    {
-        $form = new InlineFormType(new Validator());
-
-        $this->assertEquals("form-inline", $form->getClass());
-    }
-
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testCheckIfActionIsBeingSetCorrectly()
+    public function testSettersAndGetters()
     {
-        $form = new InlineFormType(new Validator());
+        $validator = $this->getMockBuilder('BSForm\Validator\Validator')->getMock();
+        $form = new InlineFormType($validator);
+
         $this->assertTrue(is_string($form->getAction()));
 
-        $form->setAction(123); //throws exception
-    }
+        $this->assertEquals("form-inline", $form->getClass());
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testCheckIfMethodIsBeingSetCorrectly()
-    {
-        $form = new InlineFormType(new Validator());
+        $form->setAction(123); //throws exception
+
         $this->assertEquals("POST", $form->getMethod());
 
         $form->setMethod("get");
         $this->assertEquals("GET", $form->getMethod());
 
         $form->setMethod("INVALID"); // throws exception
-    }
 
-    public function testCheckIfFormReturnsAString()
-    {
-        $form = new InlineFormType(new Validator());
         $this->assertTrue(is_string($form->getForm()));
     }
 }

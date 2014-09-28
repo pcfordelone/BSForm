@@ -1,23 +1,23 @@
 <?php
 namespace BSForm;
 
-use BSForm\Types\EmailType;
+use BSForm\Types\PasswordType;
 
-class EmailTypeTest extends \PHPUnit_Framework_TestCase
+class PasswordTypeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCheckIfExtendsAbstractInputType()
+    public function testIfExtendsAbstractInputType()
     {
-        $this->assertInstanceOf('BSForm\Types\AbstractInputType', new EmailType());
+        $this->assertInstanceOf('BSForm\Types\AbstractInputType', new PasswordType());
     }
 
-    public function testCheckIfImplementsFieldInterface()
+    public function testIfImplementsFieldInterface()
     {
-        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', new EmailType());
+        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', new PasswordType());
     }
 
     public function testSettersAndGetters()
     {
-        $item = new EmailType();
+        $item = new PasswordType();
         $this->assertEquals("form-control", $item->getClass());
 
         $item->setClass("form-control error");
@@ -47,7 +47,7 @@ class EmailTypeTest extends \PHPUnit_Framework_TestCase
         $item->setName("Name");
         $this->assertEquals("Name", $item->getName());
 
-        $this->assertEquals("email", $item->getType());
+        $this->assertEquals("password", $item->getType());
 
         $this->assertTrue(is_string($item->getField()));
     }
