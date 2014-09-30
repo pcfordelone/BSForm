@@ -17,7 +17,7 @@ Para executar o sistema, você pode utilizar tanto o **servidor embutido do PHP 
 
 ```
 cd BSForm
-php -S 0.0.0.0:8001 -t public_html/demo.php
+php -S 0.0.0.0:8001 -t public_html/
 ```
 
 ### Virtualhost do Apache 2.4
