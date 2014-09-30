@@ -2,24 +2,18 @@
 namespace BSForm;
 
 use BSForm\Types\HorizontalFormType;
-use BSForm\Validator\Validator;
 use Instantiator\Exception\InvalidArgumentException;
 
 class HorizontalFormTypeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCheckIfExtendsAbstractFormType()
+    public function testInstances()
     {
-        $this->assertInstanceOf('BSForm\Types\AbstractFormType', new HorizontalFormType(new Validator()));
-    }
+        $stub = $this->getMock('BSForm\Validator\Validator');
+        $item = new HorizontalFormType($stub);
 
-    public function testCheckIfImplementsFormInterface()
-    {
-        $this->assertInstanceOf('BSForm\Interfaces\FormInterface', new HorizontalFormType(new Validator()));
-    }
-
-    public function testCheckIfImplementsFieldContainerInterface()
-    {
-        $this->assertInstanceOf('BSForm\Interfaces\FieldContainerInterface', new HorizontalFormType(new Validator));
+        $this->assertInstanceOf('BSForm\Types\AbstractFormType', $item);
+        $this->assertInstanceOf('BSForm\Interfaces\FormInterface', $item);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldContainerInterface', $item);
     }
 
     /**
@@ -27,23 +21,23 @@ class HorizontalFormTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testSettersAndGetters()
     {
-        $validator = $this->getMockBuilder('BSForm\Validator\Validator')->getMock();
-        $form = new HorizontalFormType($validator);
+        $stub = $this->getMock('BSForm\Validator\Validator');
+        $item = new HorizontalFormType($stub);
 
-        $this->assertTrue(is_string($form->getAction()));
+        $this->assertTrue(is_string($item->getAction()));
 
-        $this->assertEquals("form-horizontal", $form->getClass());
+        $this->assertEquals("form-horizontal", $item->getClass());
 
-        $form->setAction(123); //throws exception
+        $item->setAction(123); //throws exception
 
-        $this->assertEquals("POST", $form->getMethod());
+        $this->assertEquals("POST", $item->getMethod());
 
-        $form->setMethod("get");
-        $this->assertEquals("GET", $form->getMethod());
+        $item->setMethod("get");
+        $this->assertEquals("GET", $item->getMethod());
 
-        $form->setMethod("INVALID"); // throws exception
+        $item->setMethod("INVALID"); // throws exception
 
-        $this->assertTrue(is_string($form->getForm()));
+        $this->assertTrue(is_string($item->getForm()));
     }
 }
  

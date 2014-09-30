@@ -5,14 +5,12 @@ use BSForm\Types\RadioType;
 
 class RadioTypeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCheckIfExtendsAbstractInputType()
+    public function testInstances()
     {
-        $this->assertInstanceOf('BSForm\Types\AbstractInputType', new RadioType());
-    }
+        $item = new RadioType();
 
-    public function testCheckIfImplementsFieldInterface()
-    {
-        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', new RadioType());
+        $this->assertInstanceOf('BSForm\Types\AbstractInputType', $item);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $item);
     }
 
     public function testSettersAndGetters()

@@ -6,14 +6,12 @@ use BSForm\Types\TextType;
 
 class TextTypeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCheckIfExtendsAbstractInputType()
+    public function testInstances()
     {
-        $this->assertInstanceOf('BSForm\Types\AbstractInputType', new TextType());
-    }
+        $item = new TextType();
 
-    public function testCheckIfImplementsFieldInterface()
-    {
-        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', new TextType());
+        $this->assertInstanceOf('BSForm\Types\AbstractInputType', $item);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $item);
     }
 
     public function testSettersAndGetters()

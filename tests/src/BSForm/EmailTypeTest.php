@@ -5,14 +5,12 @@ use BSForm\Types\EmailType;
 
 class EmailTypeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCheckIfExtendsAbstractInputType()
+    public function testInstances()
     {
-        $this->assertInstanceOf('BSForm\Types\AbstractInputType', new EmailType());
-    }
+        $item = new EmailType();
 
-    public function testCheckIfImplementsFieldInterface()
-    {
-        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', new EmailType());
+        $this->assertInstanceOf('BSForm\Types\AbstractInputType', $item);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $item);
     }
 
     public function testSettersAndGetters()

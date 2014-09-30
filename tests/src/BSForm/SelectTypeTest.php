@@ -28,20 +28,28 @@ class SelectTypeTest extends \PHPUnit_Framework_TestCase
 
         $item->setId("ID");
         $this->assertEquals("ID", $item->getId());
-        /*
-        $opt1 = $this->getMockBuilder('BSForm\Types\OptionType')
-            ->setMethods(['getOption'])
-            ->getMock()->expects($this->any())->willReturn('');
-        */
-        $opt1 = $this->getMock('BSForm\Types\OptionType', ["getOption"]);/*
-            ->expects($this->any())
-            ->willReturn('');
-        */
+    }
+
+    public function testOptionContainer()
+    {
+        $item = new SelectType();
+
+        $opt1 = $this->getMock('BSForm\Types\OptionType', ['getOption']);
         $opt2 = clone $opt1;
 
+        $opt1->expects($this->any())
+            ->method('getOption')
+            ->willReturn('option 1')
+        ;
+        $opt2->expects($this->any())
+            ->method('getOption')
+            ->willReturn('option 2')
+        ;
+
         $item->addOption($opt1)->addOption($opt2);
-        $this->assertEmpty($item->getOptions()[0]->getOption());
-        $this->assertEmpty($item->getOptions()[1]->getOption());
+        $this->assertEquals('option 1', $item->getOptions()[0]->getOption());
+        $this->assertEquals('option 2', $item->getOptions()[1]->getOption());
+        $this->assertContainsOnlyInstancesOf('BSForm\Types\OptionType', $item->getOptions());
 
         $this->assertTrue(is_string($item->getField()));
     }

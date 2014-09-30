@@ -1,11 +1,13 @@
 # BSForm
-Formulário criado programaticamente utilizando php e *Twitter Bootstrap*
+Formulário criado programaticamente com PHP e estilizado com *Twitter Bootstrap*
 
 ## Instruções
 
 ### Instalação
 ```
 git clone https://github.com/brunowerneck/BSForm.git
+cd BSForm
+composer install
 ```
 
 ### Execução

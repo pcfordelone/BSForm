@@ -6,24 +6,20 @@ use BSForm\Types\CheckboxType;
 
 class CheckboxTypeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCheckIfExtendsAbstractInputType()
+    public function testInstances()
     {
-        $this->assertInstanceOf('BSForm\Types\AbstractInputType', new CheckboxType());
+        $item = new CheckboxType();
+
+        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', $item);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $item);
     }
 
-    public function testCheckIfImplementsFieldInterface()
+    public function testGetters()
     {
-        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', new CheckboxType());
-    }
+        $item = new CheckboxType();
 
-    public function testCheckType()
-    {
-        $this->assertEquals('checkbox', (new CheckboxType())->getType());
-    }
-
-    public function testCheckIfGetFieldIsString()
-    {
-        $this->assertTrue(is_string((new CheckboxType())->getField()));
+        $this->assertEquals('checkbox', $item->getType());
+        $this->assertTrue(is_string($item->getField()));
     }
 }
  

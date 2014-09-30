@@ -13,11 +13,18 @@ class ColumnType implements FieldInterface, FieldContainerInterface
     use IndentableTrait;
     use FieldContainerTrait;
 
+    protected $class;
+
     public function setClass($class)
     {
         $this->class = $class;
 
         return $this;
+    }
+
+    public function getClass()
+    {
+        return $this->class;
     }
 
     public function setName($name)

@@ -33,6 +33,11 @@ class FormGroupType implements FieldInterface, FieldContainerInterface
         return $this;
     }
 
+    public function getClass()
+    {
+        return $this->class;
+    }
+
     public function getField($indentations = 0)
     {
         $field = $this->indent($indentations);

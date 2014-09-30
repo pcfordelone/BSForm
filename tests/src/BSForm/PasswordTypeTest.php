@@ -5,14 +5,12 @@ use BSForm\Types\PasswordType;
 
 class PasswordTypeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testIfExtendsAbstractInputType()
+    public function testInstances()
     {
-        $this->assertInstanceOf('BSForm\Types\AbstractInputType', new PasswordType());
-    }
+        $item = new PasswordType();
 
-    public function testIfImplementsFieldInterface()
-    {
-        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', new PasswordType());
+        $this->assertInstanceOf('BSForm\Types\AbstractInputType', $item);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $item);
     }
 
     public function testSettersAndGetters()

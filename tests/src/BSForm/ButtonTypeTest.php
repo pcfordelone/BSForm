@@ -6,14 +6,12 @@ use Instantiator\Exception\InvalidArgumentException;
 
 class ButtonTypeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCheckIfExtendsAbstractFieldType()
+    public function testInstances()
     {
-        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', new ButtonType());
-    }
+        $item = new ButtonType();
 
-    public function testCheckIfImplementsFieldInterface()
-    {
-        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', new ButtonType());
+        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', $item);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $item);
     }
 
     /**
@@ -21,27 +19,29 @@ class ButtonTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testSettersAndGetters()
     {
-        $bt = new ButtonType();
+        $item = new ButtonType();
 
-        $bt->setId("StringId");
-        $this->assertTrue(is_string($bt->getId()));
+        $item->setId("StringId");
+        $this->assertTrue(is_string($item->getId()));
 
-        $bt->setId(123);
+        $item->setId(123);
 
-        $bt->setType("submit");
-        $this->assertTrue(is_string($bt->getType()));
+        $item->setType("submit");
+        $this->assertTrue(is_string($item->getType()));
 
-        $bt->setType("IDon'tExist");
+        $item->setType("IDon'tExist");
 
-        $bt->setIcon("iconStr");
-        $this->assertTrue(is_string($bt->getIcon()));
+        $item->setIcon("iconStr");
+        $this->assertTrue(is_string($item->getIcon()));
 
-        $bt->setIcon(123);
+        $item->setIcon(123);
 
-        $bt->setInnerText("InnerText");
-        $this->assertTrue(is_string($bt->getInnerText()));
+        $item->setInnerText("InnerText");
+        $this->assertTrue(is_string($item->getInnerText()));
 
-        $bt->setInnerText(123);
+        $item->setInnerText(123);
+
+        $this->assertTrue(is_string($item->getField()));
     }
 }
  
