@@ -5,28 +5,42 @@ use BSForm\Types\TextareaType;
 
 class TextareaTypeTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var TextareaType
+     */
+    private $textarea;
+
+    public function setUp()
+    {
+        $this->textarea = new TextareaType();
+    }
+
+    public function tearDown()
+    {
+        $this->textarea = null;
+    }
+
     public function testInstances()
     {
-        $item = new TextareaType();
-
-        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', $item);
+        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', $this->textarea);
     }
 
     public function testSettersAndGetters()
     {
-        $item = new TextareaType();
+        $this->textarea->setValue("TextArea Value");
+        $this->assertEquals("TextArea Value", $this->textarea->getValue());
 
-        $item->setValue("TextArea Value");
-        $this->assertEquals("TextArea Value", $item->getValue());
+        $this->textarea->setPlaceholder("TextArea Placeholder");
+        $this->assertEquals("TextArea Placeholder", $this->textarea->getPlaceholder());
 
-        $item->setPlaceholder("TextArea Placeholder");
-        $this->assertEquals("TextArea Placeholder", $item->getPlaceholder());
+        $this->textarea->setRows(5);
+        $this->assertEquals(5, $this->textarea->getRows());
+        $this->assertTrue(is_int($this->textarea->getRows()));
+    }
 
-        $item->setRows(5);
-        $this->assertEquals(5, $item->getRows());
-        $this->assertTrue(is_int($item->getRows()));
-
-        $this->assertTrue(is_string($item->getField()));
+    public function testFunctionalTests()
+    {
+        $this->assertTrue(is_string($this->textarea->getField()));
     }
 }
  

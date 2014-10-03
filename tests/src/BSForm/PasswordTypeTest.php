@@ -5,49 +5,62 @@ use BSForm\Types\PasswordType;
 
 class PasswordTypeTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var PasswordType
+     */
+    private $pword;
+
+    public function setUp()
+    {
+        $this->pword = new PasswordType();
+    }
+
+    public function tearDown()
+    {
+        $this->pword = null;
+    }
+
     public function testInstances()
     {
-        $item = new PasswordType();
-
-        $this->assertInstanceOf('BSForm\Types\AbstractInputType', $item);
-        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $item);
+        $this->assertInstanceOf('BSForm\Types\AbstractInputType', $this->pword);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $this->pword);
     }
 
     public function testSettersAndGetters()
     {
-        $item = new PasswordType();
-        $this->assertEquals("form-control", $item->getClass());
+        $this->pword->setClass("form-control error");
+        $this->assertEquals("form-control error", $this->pword->getClass());
 
-        $item->setClass("form-control error");
-        $this->assertEquals("form-control error", $item->getClass());
+        $this->pword->setValue("Value");
+        $this->assertEquals("Value", $this->pword->getValue());
 
-        $item->setValue("Value");
-        $this->assertEquals("Value", $item->getValue());
+        $this->pword->setDisabled(true);
+        $this->assertTrue($this->pword->getDisabled());
 
-        $item->setDisabled(true);
-        $this->assertTrue($item->getDisabled());
+        $this->pword->setAutofocus(true);
+        $this->assertTrue($this->pword->getAutofocus());
 
-        $item->setAutofocus(true);
-        $this->assertTrue($item->getAutofocus());
+        $this->pword->setErrorMessage("Error Message");
+        $this->assertEquals("Error Message", $this->pword->getErrorMessage());
 
-        $item->setErrorMessage("Error Message");
-        $this->assertEquals("Error Message", $item->getErrorMessage());
+        $this->pword->setExtraAttributes([]);
+        $this->assertTrue(is_array($this->pword->getExtraAttributes()));
 
-        $item->setExtraAttributes([]);
-        $this->assertTrue(is_array($item->getExtraAttributes()));
+        $this->pword->setId("ID");
+        $this->assertEquals("ID", $this->pword->getId());
 
-        $item->setId("ID");
-        $this->assertEquals("ID", $item->getId());
+        $this->pword->setIsRequired(true);
+        $this->assertTrue($this->pword->getIsRequired());
 
-        $item->setIsRequired(true);
-        $this->assertTrue($item->getIsRequired());
+        $this->pword->setName("Name");
+        $this->assertEquals("Name", $this->pword->getName());
+    }
 
-        $item->setName("Name");
-        $this->assertEquals("Name", $item->getName());
-
-        $this->assertEquals("password", $item->getType());
-
-        $this->assertTrue(is_string($item->getField()));
+    public function testFunctionalTests()
+    {
+        $this->assertEquals("form-control", $this->pword->getClass());
+        $this->assertEquals("password", $this->pword->getType());
+        $this->assertTrue(is_string($this->pword->getField()));
     }
 }
  

@@ -5,33 +5,48 @@ use BSForm\Types\RadioType;
 
 class RadioTypeTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var RadioType
+     */
+    private $radio;
+
+    protected function setUp()
+    {
+        $this->radio = new RadioType();
+    }
+
+    protected function tearDown()
+    {
+        $this->radio = null;
+    }
+
+
     public function testInstances()
     {
-        $item = new RadioType();
-
-        $this->assertInstanceOf('BSForm\Types\AbstractInputType', $item);
-        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $item);
+        $this->assertInstanceOf('BSForm\Types\AbstractInputType', $this->radio);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $this->radio);
     }
 
     public function testSettersAndGetters()
     {
-        $item = new RadioType();
+        $this->assertNull($this->radio->getClass());
 
-        $this->assertNull($item->getClass());
+        $this->radio->setClass("classname");
+        $this->assertEquals("classname", $this->radio->getClass());
 
-        $item->setClass("classname");
-        $this->assertEquals("classname", $item->getClass());
+        $this->radio->setName("name");
+        $this->assertEquals("name", $this->radio->getName());
 
-        $item->setName("name");
-        $this->assertEquals("name", $item->getName());
+        $this->radio->setValue("value");
+        $this->assertEquals("value", $this->radio->getValue());
 
-        $item->setValue("value");
-        $this->assertEquals("value", $item->getValue());
+        $this->radio->setInnerText("InnerText");
+        $this->assertEquals("InnerText", $this->radio->getInnerText());
+    }
 
-        $item->setInnerText("InnerText");
-        $this->assertEquals("InnerText", $item->getInnerText());
-
-        $this->assertTrue(is_string($item->getField()));
+    public function testFunctionalTests()
+    {
+        $this->assertTrue(is_string($this->radio->getField()));
     }
 }
  

@@ -5,49 +5,64 @@ use BSForm\Types\EmailType;
 
 class EmailTypeTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var EmailType
+     */
+    private $email;
+
+    public function setUp()
+    {
+        $this->email = new EmailType();
+    }
+
+    public function tearDown()
+    {
+        $this->email = null;
+    }
+
     public function testInstances()
     {
-        $item = new EmailType();
-
-        $this->assertInstanceOf('BSForm\Types\AbstractInputType', $item);
-        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $item);
+        $this->assertInstanceOf('BSForm\Types\AbstractInputType', $this->email);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $this->email);
     }
 
     public function testSettersAndGetters()
     {
-        $item = new EmailType();
-        $this->assertEquals("form-control", $item->getClass());
+        $this->assertEquals("form-control", $this->email->getClass());
 
-        $item->setClass("form-control error");
-        $this->assertEquals("form-control error", $item->getClass());
+        $this->email->setClass("form-control error");
+        $this->assertEquals("form-control error", $this->email->getClass());
 
-        $item->setValue("Value");
-        $this->assertEquals("Value", $item->getValue());
+        $this->email->setValue("Value");
+        $this->assertEquals("Value", $this->email->getValue());
 
-        $item->setDisabled(true);
-        $this->assertTrue($item->getDisabled());
+        $this->email->setDisabled(true);
+        $this->assertTrue($this->email->getDisabled());
 
-        $item->setAutofocus(true);
-        $this->assertTrue($item->getAutofocus());
+        $this->email->setAutofocus(true);
+        $this->assertTrue($this->email->getAutofocus());
 
-        $item->setErrorMessage("Error Message");
-        $this->assertEquals("Error Message", $item->getErrorMessage());
+        $this->email->setErrorMessage("Error Message");
+        $this->assertEquals("Error Message", $this->email->getErrorMessage());
 
-        $item->setExtraAttributes([]);
-        $this->assertTrue(is_array($item->getExtraAttributes()));
+        $this->email->setExtraAttributes([]);
+        $this->assertTrue(is_array($this->email->getExtraAttributes()));
 
-        $item->setId("ID");
-        $this->assertEquals("ID", $item->getId());
+        $this->email->setId("ID");
+        $this->assertEquals("ID", $this->email->getId());
 
-        $item->setIsRequired(true);
-        $this->assertTrue($item->getIsRequired());
+        $this->email->setIsRequired(true);
+        $this->assertTrue($this->email->getIsRequired());
 
-        $item->setName("Name");
-        $this->assertEquals("Name", $item->getName());
+        $this->email->setName("Name");
+        $this->assertEquals("Name", $this->email->getName());
+    }
 
-        $this->assertEquals("email", $item->getType());
-
-        $this->assertTrue(is_string($item->getField()));
+    public function testFunctionalTests()
+    {
+        $this->assertFalse($this->email->getIsRequired());
+        $this->assertEquals("email", $this->email->getType());
+        $this->assertTrue(is_string($this->email->getField()));
     }
 }
  

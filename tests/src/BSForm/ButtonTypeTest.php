@@ -6,42 +6,91 @@ use Instantiator\Exception\InvalidArgumentException;
 
 class ButtonTypeTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var ButtonType
+     */
+    private $button;
+
+    public function setUp()
+    {
+        $this->button = new ButtonType();
+    }
+
+    public function tearDown()
+    {
+        $this->button = null;
+    }
+
     public function testInstances()
     {
-        $item = new ButtonType();
-
-        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', $item);
-        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $item);
+        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', $this->button);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $this->button);
     }
 
     /**
      * @expectedException InvalidArgumentException
      */
+    public function testIdException()
+    {
+        $this->button->setId(123);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testTypeException()
+    {
+        $this->button->setType("IDon'tExist");
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testIconException()
+    {
+        $this->button->setIcon(123);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testInnerTextException()
+    {
+        $this->button->setInnerText(123);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testRoleException()
+    {
+        $this->button->setRole(123);
+    }
+
     public function testSettersAndGetters()
     {
-        $item = new ButtonType();
+        $this->button->setId("StringId");
+        $this->assertTrue(is_string($this->button->getId()));
 
-        $item->setId("StringId");
-        $this->assertTrue(is_string($item->getId()));
+        $this->button->setType("submit");
+        $this->assertTrue(is_string($this->button->getType()));
 
-        $item->setId(123);
+        $this->button->setIcon("iconStr");
+        $this->assertTrue(is_string($this->button->getIcon()));
 
-        $item->setType("submit");
-        $this->assertTrue(is_string($item->getType()));
+        $this->button->setInnerText("InnerText");
+        $this->assertTrue(is_string($this->button->getInnerText()));
 
-        $item->setType("IDon'tExist");
+        $this->button->addClass("buttonclass");
+        $this->assertEquals("btn buttonclass", $this->button->getClass());
 
-        $item->setIcon("iconStr");
-        $this->assertTrue(is_string($item->getIcon()));
+        $this->button->setRole("role");
+        $this->assertEquals("role", $this->button->getRole());
+    }
 
-        $item->setIcon(123);
-
-        $item->setInnerText("InnerText");
-        $this->assertTrue(is_string($item->getInnerText()));
-
-        $item->setInnerText(123);
-
-        $this->assertTrue(is_string($item->getField()));
+    public function testFunctionalTests()
+    {
+        $this->assertTrue(is_string($this->button->getField()));
     }
 }
  

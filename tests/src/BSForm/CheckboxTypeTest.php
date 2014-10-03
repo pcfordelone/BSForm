@@ -6,20 +6,37 @@ use BSForm\Types\CheckboxType;
 
 class CheckboxTypeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testInstances()
-    {
-        $item = new CheckboxType();
+    /**
+     * @var CheckboxType
+     */
+    private $checkbox;
 
-        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', $item);
-        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $item);
+    public function setUp()
+    {
+        $this->checkbox = new CheckboxType();
     }
 
-    public function testGetters()
+    public function tearDown()
     {
-        $item = new CheckboxType();
+        $this->checkbox = null;
+    }
 
-        $this->assertEquals('checkbox', $item->getType());
-        $this->assertTrue(is_string($item->getField()));
+    public function testInstances()
+    {
+        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', $this->checkbox);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldInterface', $this->checkbox);
+    }
+
+    public function testSettersAndGetters()
+    {
+        $this->checkbox->setInnerText("inner text");
+        $this->assertEquals("inner text", $this->checkbox->getInnerText());
+    }
+
+    public function testFunctionalTests()
+    {
+        $this->assertEquals('checkbox', $this->checkbox->getType());
+        $this->assertTrue(is_string($this->checkbox->getField()));
     }
 }
  

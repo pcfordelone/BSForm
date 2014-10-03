@@ -5,31 +5,47 @@ use BSForm\Types\OptionType;
 
 class OptionTypeTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var OptionType
+     */
+    private $option;
+
+    public function setUp()
+    {
+        $this->option = new OptionType();
+    }
+
+    public function tearDown()
+    {
+        $this->option = null;
+    }
+
     public function testCheckIfImplementsOptionInterface()
     {
-        $this->assertInstanceOf('BSForm\Interfaces\OptionInterface', new OptionType());
+        $this->assertInstanceOf('BSForm\Interfaces\OptionInterface', $this->option);
     }
 
     public function testSettersAndGetters()
     {
-        $item = new OptionType();
+        $this->option->setDisabled(true);
+        $this->assertTrue($this->option->getDisabled());
 
-        $item->setDisabled(true);
-        $this->assertTrue($item->getDisabled());
+        $this->option->setInnerText("InnerText");
+        $this->assertEquals("InnerText", $this->option->getInnerText());
 
-        $item->setInnerText("InnerText");
-        $this->assertEquals("InnerText", $item->getInnerText());
+        $this->option->setLabel("Label");
+        $this->assertEquals("Label", $this->option->getLabel());
 
-        $item->setLabel("Label");
-        $this->assertEquals("Label", $item->getLabel());
+        $this->option->setSelected(true);
+        $this->assertTrue($this->option->getSelected());
 
-        $item->setSelected(true);
-        $this->assertTrue($item->getSelected());
+        $this->option->setValue("Value");
+        $this->assertEquals("Value", $this->option->getValue());
+    }
 
-        $item->setValue("Value");
-        $this->assertEquals("Value", $item->getValue());
-
-        $this->assertTrue(is_string($item->getOption()));
+    public function testFunctionalTests()
+    {
+        $this->assertTrue(is_string($this->option->getOption()));
     }
 
 }

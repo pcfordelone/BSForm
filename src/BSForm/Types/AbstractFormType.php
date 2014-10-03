@@ -75,7 +75,7 @@ abstract class AbstractFormType implements FormInterface, FieldContainerInterfac
 
     public function setMethod($method = "POST")
     {
-        if (strtoupper($method) !== "POST" || strtoupper($method) !== "GET") {
+        if (strtoupper($method) !== "POST" && strtoupper($method) !== "GET") {
             throw new \InvalidArgumentException("Value must be either POST or GET");
         }
         $this->method = $method;

@@ -2,50 +2,71 @@
 namespace BSForm;
 
 use BSForm\Types\LabelType;
+use BSForm\Types\TextType;
 
 class LabelTypeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testIfExtendsAbstractFieldType()
+    /**
+     * @var LabelType
+     */
+    private $label;
+
+    public function setUp()
     {
-        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', new LabelType());
+        $this->label = new LabelType();
     }
 
-    public function testIfImplementsFieldContainerInterface()
+    public function tearDown()
     {
-        $this->assertInstanceOf('BSForm\Interfaces\FieldContainerInterface', new LabelType());
+        $this->label = null;
+    }
+
+    public function testInstances()
+    {
+        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', $this->label);
+        $this->assertInstanceOf('BSForm\Interfaces\FieldContainerInterface', $this->label);
     }
 
     public function testSettersAndGetters()
     {
-        $item = new LabelType();
+        $this->label->setClass('control-label');
+        $this->assertEquals('control-label', $this->label->getClass());
 
-        $item->setClass('control-label');
-        $this->assertEquals('control-label', $item->getClass());
+        $this->label->setId("ID");
+        $this->assertEquals("ID", $this->label->getId());
 
-        $item->setId("ID");
-        $this->assertEquals("ID", $item->getId());
+        $this->label->setFor("forID");
+        $this->assertEquals("forID", $this->label->getFor());
 
-        $item->setFor("forID");
-        $this->assertEquals("forID", $item->getFor());
-
-        $item->setText("label text");
-        $this->assertEquals("label text", $item->getText());
-
-        $this->assertTrue(is_string($item->getField()));
+        $this->label->setText("label text");
+        $this->assertEquals("label text", $this->label->getText());
     }
 
     public function testFieldContainer()
     {
-        $item = new LabelType();
-
         $stub = $this->getMock('BSForm\Types\TextType', ['getField']);
         $stub->expects($this->any())
             ->method('getField')
             ->willReturn('field');
 
-        $item->addField($stub);
+        $this->label->addField($stub);
 
-        $this->assertEquals('field', $item->getFieldList()[0]->getField());
+        $this->assertEquals('field', $this->label->getFieldList()[0]->getField());
+    }
+
+    public function testFunctionalTests()
+    {
+        $textField = new TextType();
+
+        $this->assertEmpty($this->label->getFieldList());
+
+        $this->label->addField($textField);
+
+        $this->assertContainsOnlyInstancesOf('BSForm\Types\TextType', $this->label->getFieldList());
+        $this->assertInstanceOf('BSForm\Types\TextType', $this->label->getFieldList()[0]);
+        $this->assertTrue(is_string($this->label->getFieldList()[0]->getField()));
+
+        $this->assertTrue(is_string($this->label->getField()));
     }
 }
  

@@ -1,39 +1,51 @@
 <?php
 namespace BSForm;
 
+use BSForm\Types\OptionType;
 use BSForm\Types\SelectType;
 
 class SelectTypeTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var SelectType
+     */
+    private $select;
+
+    public function setUp()
+    {
+        $this->select = new SelectType();
+    }
+
+    public function tearDown()
+    {
+        $this->select = null;
+    }
+
     public function testIfExtendsAbstractFieldType()
     {
-        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', new SelectType());
+        $this->assertInstanceOf('BSForm\Types\AbstractFieldType', $this->select);
     }
 
     public function testSettersAndGetters()
     {
-        $item = new SelectType();
+        $this->select->setName("name");
+        $this->assertEquals("name", $this->select->getName());
 
-        $item->setName("name");
-        $this->assertEquals("name", $item->getName());
+        $this->select->setClass("classname");
+        $this->assertEquals("classname", $this->select->getClass());
 
-        $item->setClass("classname");
-        $this->assertEquals("classname", $item->getClass());
+        $this->select->setIsRequired(true);
+        $this->assertTrue($this->select->getIsRequired());
 
-        $item->setIsRequired(true);
-        $this->assertTrue($item->getIsRequired());
+        $this->select->setMultiple(true);
+        $this->assertTrue($this->select->getMultiple());
 
-        $item->setMultiple(true);
-        $this->assertTrue($item->getMultiple());
-
-        $item->setId("ID");
-        $this->assertEquals("ID", $item->getId());
+        $this->select->setId("ID");
+        $this->assertEquals("ID", $this->select->getId());
     }
 
     public function testOptionContainer()
     {
-        $item = new SelectType();
-
         $opt1 = $this->getMock('BSForm\Types\OptionType', ['getOption']);
         $opt2 = clone $opt1;
 
@@ -46,12 +58,26 @@ class SelectTypeTest extends \PHPUnit_Framework_TestCase
             ->willReturn('option 2')
         ;
 
-        $item->addOption($opt1)->addOption($opt2);
-        $this->assertEquals('option 1', $item->getOptions()[0]->getOption());
-        $this->assertEquals('option 2', $item->getOptions()[1]->getOption());
-        $this->assertContainsOnlyInstancesOf('BSForm\Types\OptionType', $item->getOptions());
+        $this->select->addOption($opt1)->addOption($opt2);
+        $this->assertEquals('option 1', $this->select->getOptions()[0]->getOption());
+        $this->assertEquals('option 2', $this->select->getOptions()[1]->getOption());
+        $this->assertContainsOnlyInstancesOf('BSForm\Types\OptionType', $this->select->getOptions());
+    }
 
-        $this->assertTrue(is_string($item->getField()));
+    public function testFunctionalTests()
+    {
+        $opt1 = new OptionType();
+        $opt2 = clone $opt1;
+
+        $this->assertEmpty($this->select->getOptions());
+
+        $this->select->addOption($opt1)->addOption($opt2);
+
+        $this->assertContainsOnlyInstancesOf('BSForm\Types\OptionType', $this->select->getOptions());
+        $this->assertInstanceOf('BSForm\Types\OptionType', $this->select->getOptions()[0]);
+        $this->assertInstanceOf('BSForm\Types\OptionType', $this->select->getOptions()[1]);
+
+        $this->assertTrue(is_string($this->select->getField()));
     }
 }
  

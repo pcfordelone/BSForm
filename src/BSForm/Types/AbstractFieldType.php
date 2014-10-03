@@ -17,6 +17,9 @@ abstract class AbstractFieldType implements FieldInterface
 
     public function setId($id)
     {
+        if (!is_string($id)) {
+            throw new \InvalidArgumentException("ID must be a string");
+        }
         $this->id = $id;
 
         return $this;
@@ -34,6 +37,9 @@ abstract class AbstractFieldType implements FieldInterface
 
     public function setName($name)
     {
+        if (!is_string($name)) {
+            throw new \InvalidArgumentException("Name must be a string");
+        }
         $this->name = $name;
 
         return $this;
@@ -41,6 +47,9 @@ abstract class AbstractFieldType implements FieldInterface
 
     public function setClass($class)
     {
+        if (!is_string($class)) {
+            throw new \InvalidArgumentException("Class must be a string");
+        }
         $this->class = $class;
 
         return $this;
@@ -53,6 +62,9 @@ abstract class AbstractFieldType implements FieldInterface
 
     public function setIsRequired($isRequired = false)
     {
+        if (!is_bool($isRequired)) {
+            throw new \InvalidArgumentException("isRequired must be a boolean");
+        }
         $this->isRequired = $isRequired;
 
         return $this;
@@ -70,6 +82,9 @@ abstract class AbstractFieldType implements FieldInterface
 
     public function setErrorMessage($errorMessage)
     {
+        if (!is_string($errorMessage)) {
+            throw new \InvalidArgumentException("errorMessage must be a string");
+        }
         $this->errorMessage = $errorMessage;
 
         return $this;
@@ -82,6 +97,9 @@ abstract class AbstractFieldType implements FieldInterface
 
     public function setExtraAttributes(array $extraAttributes)
     {
+        if (!is_array($extraAttributes)) {
+            throw new \InvalidArgumentException("extraAttributes must be an array");
+        }
         $this->extraAttributes = $extraAttributes;
 
         return $this;
